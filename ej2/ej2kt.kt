@@ -10,6 +10,29 @@ class ListNode(var value: Int) {
  
 class Solution {
     fun addTwoNumbers(l1: ListNode?, l2: ListNode?): ListNode? {
-        
+        val res = ListNode(0)
+        var p = l1
+        var q = l2
+        var actual = res
+        var carry = 0
+
+        while (p != null || q != null) {
+            val x = p?.`val` ?: 0
+            val y = q?.`val` ?: 0
+            val sum = carry + x + y
+
+            carry = sum / 10
+            actual.next = ListNode(sum % 10)
+            actual = actual.next!!
+
+            if (p != null) p = p.next
+            if (q != null) q = q.next
+        }
+
+        if (carry > 0) {
+            actual.next = ListNode(carry)
+        }
+
+        return res.next 
     }
 }
